@@ -19,28 +19,16 @@ public class Utenti {
 		this.followers = 0; 
 	}
 
-	public long getId_utente() {
-		return id_utente;
-	}
+	public long getId_utente() {return id_utente;}
 
-	public void setId_utente(long id_utente) {
-		this.id_utente = id_utente;
-	}
+	public void setId_utente(long id_utente) {this.id_utente = id_utente;}
 
-	public String getName() {
-		return name;
-	}
+	public String getName() {return name;}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+	public void setName(String name) {this.name = name;}
 
-	public int getFollowers() {
-		return followers;
-	}
+	public int getFollowers() {return followers;}
 
-	public void setFollowers(int followers) {
-		this.followers = followers;
-	}
+	public void setFollowers(int followers) {this.followers = followers;}
 
 }

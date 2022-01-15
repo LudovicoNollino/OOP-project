@@ -1,5 +1,7 @@
 package it.univpm.TwitterHashtagAnalytics.model;
 
+import java.util.ArrayList;
+
 /**
  * Parametri per implementare il Costruttore
  * 
@@ -15,58 +17,47 @@ package it.univpm.TwitterHashtagAnalytics.model;
 public class Posts {
 	
 	private String cr_date;
+	ArrayList<String> hashtags;
 	private long id_tweet;
-	private String[] hashtags;
 	private int retweets;
 	private int likes;
 	//private int replies;
 	
-	public Posts () {
-		this.cr_date = "";
-		this.id_tweet = 0;
-		this.hashtags = null;
-		this.retweets = 0;
-		this.likes = 0;
-		//this.replies = 0; 
+	public Posts (Posts post) {
+		setCr_date(post.getCr_date());
+		setHashtags(post.getHashtags());
+		setId_tweet(post.id_tweet);
+		setLikes(post.likes);
+		setRetweets(post.retweets);
 	}
+	
+	
+	
+    public Posts(String cr_date, Long id_tweet, ArrayList<String> hashtags, int retweets, int likes){
+    	setCr_date(cr_date);
+    	setHashtags(hashtags);
+    	setId_tweet(id_tweet);
+    	setLikes(likes);
+    	setRetweets(retweets);
+    }
 
-	public String getCr_date() {
-		return cr_date;
-	}
+	public String getCr_date() {return cr_date;}
 
-	public void setCr_date(String cr_date) {
-		this.cr_date = cr_date;
-	}
+	public void setCr_date(String cr_date) {this.cr_date = cr_date;}
 
-	public long getId_tweet() {
-		return id_tweet;
-	}
+	public long getId_tweet() {return id_tweet;}
 
-	public void setId_tweet(long id_tweet) {
-		this.id_tweet = id_tweet;
-	}
+	public void setId_tweet(long id_tweet) {this.id_tweet = id_tweet;}
 
-	public String[] getHashtags() {
-		return hashtags;
-	}
+	public ArrayList<String> getHashtags() {return hashtags;}
 
-	public void setHashtags(String[] hashtags) {
-		this.hashtags = hashtags;
-	}
+	public void setHashtags(ArrayList<String> hashtags) {this.hashtags = hashtags;}
 
-	public int getRetweets() {
-		return retweets;
-	}
+	public int getRetweets() {return retweets;}
 
-	public void setRetweets(int retweets) {
-		this.retweets = retweets;
-	}
+	public void setRetweets(int retweets) {this.retweets = retweets;}
 
-	public int getLikes() {
-		return likes;
-	}
+	public int getLikes() {return likes;}
 
-	public void setLikes(int likes) {
-		this.likes = likes;
-	}
+	public void setLikes(int likes) {this.likes = likes;}
 }
