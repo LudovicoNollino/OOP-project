@@ -25,9 +25,9 @@ public class AppRestController {
 	
 	public ResponseEntity<Object> getPosts(
 
-			@RequestParam (name="q") String hash,
-			@RequestParam (name="lang") String lang,
-			@RequestParam (name="count") int count){
+			@RequestParam (name="q", defaultValue = "%23GreenDay") String hash,
+			@RequestParam (name="lang", defaultValue = "en") String lang,
+			@RequestParam (name="count", defaultValue = "25") int count){
 	
 		call = new APIControl(hash, lang, count);
 		
@@ -49,7 +49,7 @@ public class AppRestController {
 	@GetMapping(value = "/posts/tweet-data")
 	public ResponseEntity<Object> showData() {
 		
-		getData dati = new getData(call.retrieveData());
+		getData dati = new getData(call.getPosts(), call.getUtenti());
 		
 		return new ResponseEntity<>(dati.showData(), HttpStatus.OK);
 	}

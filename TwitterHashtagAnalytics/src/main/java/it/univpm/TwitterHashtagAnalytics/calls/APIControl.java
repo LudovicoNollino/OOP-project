@@ -64,7 +64,7 @@ public class APIControl implements APIControl_Interface{
 	}
 	
 	@Override
-	public ArrayList<Posts> retrieveData(){
+	public String retrieveData(){
 	
 		//inline will store the JSON data streamed in string format
 				String inline = "";
@@ -104,7 +104,7 @@ public class APIControl implements APIControl_Interface{
 					//Store the JSON object in JSON array as objects (For level 1 array element)
 					JSONArray jsonarr_1 = (JSONArray) jobj.get("statuses");
 					
-					
+					// tweets info
 					//Get data for Results array
 					for(int i=0;i<jsonarr_1.size();i++)
 					{
@@ -136,6 +136,16 @@ public class APIControl implements APIControl_Interface{
 						Posts newPost = new Posts(date, id, str_data1, retweet, likes);
 						tweets.add(newPost);
 						
+						//users info 
+						JSONObject mtp = (JSONObject) tmp.get("user");
+						Long id_utente = (Long) mtp.get("id");
+						String name = (String) mtp.get("name");
+						Long followers = (Long) mtp.get("followers_count");
+						
+						Utenti newUtente = new Utenti(id_utente, name, followers);
+						users.add(newUtente);
+						
+						
 					}
 					//Disconnect the HttpURLConnection stream
 					conn.disconnect();
@@ -144,7 +154,7 @@ public class APIControl implements APIControl_Interface{
 				{
 					e.printStackTrace();
 				}
-				return tweets;
+				return "Salvataggio dei dati avvenuto.";
 			}
 	
 	}		

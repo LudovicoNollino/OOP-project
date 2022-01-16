@@ -6,17 +6,21 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
+import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 
 //la classe permette di visualizzare dati e metadati
 
 public class getData {
 	
 	private ArrayList<Posts> tweets;
+	private ArrayList<Utenti> users;
 	
 	//costruttore e metodo per i DATI
 	
-	public getData(ArrayList<Posts> tweets) {
+	public getData(ArrayList<Posts> tweets, ArrayList<Utenti> users) {
 		this.tweets = tweets;
+		this.users = users;
+		
 	}
 	
 	//metodo per la visualizzazione dei dati

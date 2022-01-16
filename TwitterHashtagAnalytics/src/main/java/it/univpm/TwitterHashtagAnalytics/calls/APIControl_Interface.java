@@ -20,7 +20,7 @@ public interface APIControl_Interface {
 	
 	//Metodo astratto che effettua il salvataggio dei dati
 	
-	public abstract ArrayList<Posts> retrieveData();
+	public abstract String retrieveData();
 	
 	
 	
