@@ -22,7 +22,7 @@ public class AppRestController {
 	
 	APIControl call; 
 	
-	@GetMapping( value = "/posts/get-tweet")
+	@GetMapping( value = "/posts/get_tweet")
 	
 	public ResponseEntity<Object> getPosts(
 
@@ -32,18 +32,18 @@ public class AppRestController {
 	
 		call = new APIControl(hash, lang, count);
 		
-	return new ResponseEntity<Object>(call.retrieveData(), HttpStatus.OK);
+	return new ResponseEntity<>(call.retrieveData(), HttpStatus.OK);
 	}
 	
 	//rotta GET per i metadati
 	
-/*	@GetMapping(value ="/posts/metadati")
+	@GetMapping(value ="/posts/metadati")
 	
 	public ResponseEntity<Object> showMetadati() {
 		
-		GetDati metadati = new GetDati();
+		getData metadati = new getData();
 		return new ResponseEntity<>(metadati.showMetadati(), HttpStatus.OK);
-	}*/
+	}
 	
 	// rotta GET che mostra i dati dei tweet salvati in precedenza
 	
@@ -52,6 +52,10 @@ public class AppRestController {
 		
 		getData dati = new getData(call.retrieveData());
 		
-		return new ResponseEntity<>(dati.seeData(), HttpStatus.OK);
+		return new ResponseEntity<>(dati.showData(), HttpStatus.OK);
 	}
+	
+	//rotta GET che filtra i tweet salvati per hashtags inseriti
+	
+	
 }
