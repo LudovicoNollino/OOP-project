@@ -3,17 +3,20 @@ package it.univpm.TwitterHashtagAnalytics.calls;
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 
-import java.io.BufferedReader;
+/*import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.InputStreamReader;*/
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.ParseException;
+//import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+//import org.json.simple.parser.ParseException;
 
 public class APIControl implements APIControl_Interface{
 	
@@ -28,7 +31,7 @@ public class APIControl implements APIControl_Interface{
 	
 	final static String linkBase ="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?";
 	String linkFinale;
-	String[] hash;
+	String hash;
 	String lang;
 	int count;
 	
@@ -38,13 +41,9 @@ public class APIControl implements APIControl_Interface{
 	//Costruttore
 	
 	
-	public APIControl(String[] hash, String lang, int count){
+	public APIControl(String hash, String lang, int count){
 		
-		for(int i = 0 ; i<hash.length ; i++) {
-			
-			this.hash[i] = hash[i].replaceAll("#", "%23");
-		
-		}
+		this.hash = hash;
 		this.lang = lang;
 		this.count = count;
 	}
@@ -59,87 +58,96 @@ public class APIControl implements APIControl_Interface{
 	
 	@Override
 	public String buildQuery() {
-		
-		for (String hashtag : hash) {
-			
-			linkFinale = linkBase + "q=" + hashtag + "&";
-			
-		}
-		linkFinale = linkFinale + "lang" + lang + "&count" + count;
+		linkFinale = linkBase + "q=%23" + hash + "&lang=" + lang + "&count=" + count;
 		
 		return linkFinale;
 	}
 	
 	@Override
 	public ArrayList<Posts> retrieveData(){
-		
-		JSONObject data = new JSONObject();
-		
-		try {
-			//Apro la connessione
-			URL url = new URL(this.buildQuery());
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Accept", "applications/json");
-			
-			//Memorizzo il codice di risposta del modulo http
-			int response = conn.getResponseCode();
-			
-			if(response != 200) {
-				//Connessione non andata a buon fine
-				throw new RuntimeException("httpResponseCode :" + response);
-			}else {
-				//Connessione andata a buon fine vengono letti i dati dallo stream
-				InputStream inputStream = conn.getInputStream();
-			    BufferedReader streamReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-			    StringBuilder responseStrBuilder = new StringBuilder();
-
-			    String inputStr;
-			    while ((inputStr = streamReader.readLine()) != null)
-			        responseStrBuilder.append(inputStr);
-			    inputStream.close();	
-			    
-			    data = (JSONObject) JSONValue.parseWithException(streamReader);
-			
-			}
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
-		catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		JSONArray statuses = (JSONArray) data.get("statuses");
-		//if(statuses.isEmpty()) throw new Exception("ERROR: no tweets found");
-		
-		for(int i = 0 ; i<statuses.size() ; i++) {
-			JSONObject tweet = (JSONObject) statuses.get(i);
-		
-		//Vengono popolati i campi del model
-		String date = (String) tweet.get("created_at");
-		Long id = (Long) tweet.get("id");
-		int retweet = (int) tweet.get("retweet_count");
-		int likes = (int) tweet.get("favorites_count");
-		
-		JSONObject entities = (JSONObject) tweet.get("entities");
-		JSONArray hash = (JSONArray) entities.get("hashtags");
-		ArrayList<String> hashtag = new ArrayList<String>();
-		for (int j = 0 ; j<hash.size() ; j++) {
-				JSONObject content = (JSONObject) hash.get(j);
-				String testo = (String) content.get("text");
-				hashtag.add(testo);
-		}
-		
-		Posts post = new Posts(date, id, hashtag, retweet, likes);
-		tweets.add(post);
-		
-		}
-		
-		return tweets;
-		
-	}
 	
-}
+		//inline will store the JSON data streamed in string format
+				String inline = "";
+			
+				try
+				{
+					URL url = new URL(this.buildQuery());
+					//Parse URL into HttpURLConnection in order to open the connection in order to get the JSON data
+					HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+					//Set the request to GET or POST as per the requirements
+					conn.setRequestMethod("GET");
+					//Use the connect method to create the connection bridge
+					conn.connect();
+					//Get the response status of the Rest API
+					int responsecode = conn.getResponseCode();					
+					//Iterating condition to if response code is not 200 then throw a runtime exception
+					//else continue the actual process of getting the JSON data
+					if(responsecode != 200)
+						throw new RuntimeException("HttpResponseCode: " +responsecode);
+					else
+					{
+						//Scanner functionality will read the JSON data from the stream
+						Scanner sc = new Scanner(conn.getInputStream());
+						while(sc.hasNext())
+						{
+							inline+=sc.nextLine();
+						}
+						System.out.println(inline);
+						//Close the stream when reading the data has been finished
+						sc.close();
+					}
+					
+					//JSONParser reads the data from string object and break each data into key value pairs
+					JSONParser parse = new JSONParser();
+					//Type caste the parsed json data in json object
+					JSONObject jobj = (JSONObject)parse.parse(inline);
+					//Store the JSON object in JSON array as objects (For level 1 array element)
+					JSONArray jsonarr_1 = (JSONArray) jobj.get("statuses");
+					
+					
+					//Get data for Results array
+					for(int i=0;i<jsonarr_1.size();i++)
+					{
+						JSONObject tmp = (JSONObject) jsonarr_1.get(i);
+						//Store the JSON objects in an array
+						String date = (String) tmp.get("created_at");
+						Long id = (Long) tmp.get("id");
+						Long retweet = (Long) tmp.get("retweet_count");
+						Long likes = (Long) tmp.get("favorite_count");
+
+						//Store the JSON object in JSON array as objects (For level 2 array element i.e Address Components)
+						JSONObject jsonobj_2 = (JSONObject) tmp.get("entities");
+						JSONArray hash = (JSONArray) jsonobj_2.get("hashtags");
+						
+						ArrayList<String> str_data1 = new ArrayList<String>();
+						
+						//Get data for the Address Components array
+						
+						for(int j=0;j<hash.size();j++)
+						{
+							//Same just store the JSON objects in an array
+							//Get the index of the JSON objects and print the values as per the index
+							JSONObject jsonobj_3 = (JSONObject) hash.get(j);
+							//Store the data as String objects
+							String temp = (String) jsonobj_3.get("text");
+							str_data1.add(temp);
+						}
+						
+						Posts newPost = new Posts(date, id, str_data1, retweet, likes);
+						tweets.add(newPost);
+						
+					}
+					//Disconnect the HttpURLConnection stream
+					conn.disconnect();
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+				return tweets;
+			}
+	
+	}		
 
 
 

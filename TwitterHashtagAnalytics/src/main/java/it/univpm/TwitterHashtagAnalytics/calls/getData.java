@@ -21,7 +21,6 @@ public class getData {
 	
 	//metodo per la visualizzazione dei dati
 	
-	@SuppressWarnings("unchecked")
 	public JSONObject showData() {
 
 		JSONObject data = new JSONObject();
@@ -54,7 +53,6 @@ public class getData {
 	//costruttore di default e metodo per i METADATI
 	
 	public getData () {}
-	@SuppressWarnings("unchecked")
 	public JSONObject showMetadati () {
 		JSONObject metadati = new JSONObject();
 		JSONObject prop = new JSONObject();

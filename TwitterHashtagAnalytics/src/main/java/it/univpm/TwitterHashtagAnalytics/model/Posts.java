@@ -19,8 +19,8 @@ public class Posts {
 	private String cr_date;
 	ArrayList<String> hashtags;
 	private long id_tweet;
-	private int retweets;
-	private int likes;
+	private long retweets;
+	private long likes;
 	//private int replies;
 	
 	public Posts (Posts post) {
@@ -33,7 +33,7 @@ public class Posts {
 	
 	
 	
-    public Posts(String cr_date, Long id_tweet, ArrayList<String> hashtags, int retweets, int likes){
+    public Posts(String cr_date, Long id_tweet, ArrayList<String> hashtags, Long retweets, Long likes){
     	setCr_date(cr_date);
     	setHashtags(hashtags);
     	setId_tweet(id_tweet);
@@ -53,11 +53,11 @@ public class Posts {
 
 	public void setHashtags(ArrayList<String> hashtags) {this.hashtags = hashtags;}
 
-	public int getRetweets() {return retweets;}
+	public Long getRetweets() {return retweets;}
 
-	public void setRetweets(int retweets) {this.retweets = retweets;}
+	public void setRetweets(Long retweets) {this.retweets = retweets;}
 
-	public int getLikes() {return likes;}
+	public Long getLikes() {return likes;}
 
-	public void setLikes(int likes) {this.likes = likes;}
+	public void setLikes(Long likes) {this.likes = likes;}
 }

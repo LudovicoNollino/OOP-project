@@ -1,4 +1,4 @@
-package it.univpm.TwitterHashtagAnalytics.filters;
+/*package it.univpm.TwitterHashtagAnalytics.filters;
 
 import java.util.ArrayList;
 
@@ -45,3 +45,4 @@ public class HashtagFilter implements FilterInterface {
 	
 
 }
+*/

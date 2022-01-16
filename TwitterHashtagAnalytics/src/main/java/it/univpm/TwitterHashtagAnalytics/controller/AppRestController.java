@@ -2,7 +2,6 @@ package it.univpm.TwitterHashtagAnalytics.controller;
 
 import it.univpm.TwitterHashtagAnalytics.calls.APIControl;
 import it.univpm.TwitterHashtagAnalytics.calls.getData;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +21,13 @@ public class AppRestController {
 	
 	APIControl call; 
 	
-	@GetMapping( value = "/posts/get_tweet")
+	@GetMapping( value = "/get_tweet")
 	
 	public ResponseEntity<Object> getPosts(
 
-			@RequestParam (name="hashtags") String[] hash,
-			@RequestParam (name="lang", defaultValue = "it") String lang,
-			@RequestParam (name="count", defaultValue = "10") int count){
+			@RequestParam (name="q") String hash,
+			@RequestParam (name="lang") String lang,
+			@RequestParam (name="count") int count){
 	
 		call = new APIControl(hash, lang, count);
 		
