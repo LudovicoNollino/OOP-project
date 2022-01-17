@@ -43,19 +43,17 @@ public class getData  {
 			tweet.put("created_at",tweets.get(j).getCr_date());
 			tweet.put("id",tweets.get(j).getId_tweet());
 			tweet.put("hashtags",tweets.get(j).getHashtags());
-			tweet.put("favourites_count",tweets.get(j).getLikes());
-			tweet.put("retweet_count",tweets.get(j).getRetweets());
+			tweet.put("likes",tweets.get(j).getLikes());
+			tweet.put("retweets",tweets.get(j).getRetweets());
 			//tweet.put("in_replt_to",tweets.get(k).getReply());
 			
-			content.put("tweet", tweet);			
+			content.put("tweet", tweet);		
 			
-			for(int s=0; s<tweets.size(); s++) {
-				user.put("name",users.get(s).getName());
-				user.put("id",users.get(s).getId_utente());
-				user.put("followers_count",users.get(s).getFollowers());
-			}
+			user.put("name",users.get(j).getName());
+			user.put("id",users.get(j).getId_utente());
+			user.put("followers",users.get(j).getFollowers());
 			
-
+			content.put("user", user);
 			
 			info.add(content);
 		}

@@ -19,7 +19,7 @@ public class Utenti {
 		setFollowers(Utenti.getFollowers());
 	}
 	
-	public Utenti(Long id_utente, String neme, Long followers){
+	public Utenti(Long id_utente, String name, Long followers){
 		setId_utente(id_utente);
 		setName(name);
 		setFollowers(followers);
