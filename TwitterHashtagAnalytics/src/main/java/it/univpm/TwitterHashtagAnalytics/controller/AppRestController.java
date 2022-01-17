@@ -62,6 +62,7 @@ public class AppRestController {
 		HashtagFilter hashf = new HashtagFilter(hash,call.getPosts(), call.getUtenti());
 		
 		return new ResponseEntity<>(hashf.filter(), HttpStatus.OK);
+		
 	}
 	
 	//rotta GET che filtra i tweet salvati per numero di retweet, reply e like
