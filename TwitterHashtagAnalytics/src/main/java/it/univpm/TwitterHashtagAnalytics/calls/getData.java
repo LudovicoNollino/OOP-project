@@ -10,7 +10,7 @@ import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 
 //la classe permette di visualizzare dati e metadati
 
-public class getData {
+public class getData  {
 	
 	private ArrayList<Posts> tweets;
 	private ArrayList<Utenti> users;
@@ -25,31 +25,38 @@ public class getData {
 	
 	//metodo per la visualizzazione dei dati
 	
+	@SuppressWarnings(value = { "unchecked" })
 	public JSONObject showData() {
 
 		JSONObject data = new JSONObject();
-		JSONArray list = new JSONArray();
+		JSONArray info = new JSONArray();
 
-		//per ogni tweet viene generato un JSONObject "prop" da mettere dentro un JSONArray "list"
+		//per ogni tweet viene generato un JSONObject "content" da mettere dentro un JSONArray "info"
 		//contenuto dentro un JSONObject "data" che viene poi ritornato
-		for(int k=0; k<tweets.size(); k++) {
+		
+		for(int j=0; j<tweets.size(); j++) {
 
 			JSONObject tweet = new JSONObject();
-			JSONObject prop = new JSONObject();
+			JSONObject content = new JSONObject();
+			JSONObject user = new JSONObject();
 
-			tweet.put("created_at",tweets.get(k).getCr_date());
-			tweet.put("id",tweets.get(k).getId_tweet());
-			tweet.put("hashtags",tweets.get(k).getHashtags());
-			tweet.put("favourites_count",tweets.get(k).getLikes());
-			tweet.put("retweet_count",tweets.get(k).getRetweets());
+			tweet.put("created_at",tweets.get(j).getCr_date());
+			tweet.put("id",tweets.get(j).getId_tweet());
+			tweet.put("hashtags",tweets.get(j).getHashtags());
+			tweet.put("favourites_count",tweets.get(j).getLikes());
+			tweet.put("retweet_count",tweets.get(j).getRetweets());
 			//tweet.put("in_replt_to",tweets.get(k).getReply());
 			
-			list.add(prop);
-			prop.put("tweet",tweet);
-
-			list.add(prop);
+			content.put("tweet", tweet);			
+			
+			
+			user.put("name",users.get(j).getName());
+			user.put("id",users.get(j).getId_utente());
+			user.put("followers_count",users.get(j).getFollowers());
+			
+			info.add(content);
 		}
-		data.put("list",list);
+		data.put("list",info);
 		return data;
 	}
 	
@@ -57,11 +64,15 @@ public class getData {
 	//costruttore di default e metodo per i METADATI
 	
 	public getData () {}
+	
+	@SuppressWarnings(value = { "unchecked" })
 	public JSONObject showMetadati () {
+		
 		JSONObject metadati = new JSONObject();
-		JSONObject prop = new JSONObject();
-		JSONArray list = new JSONArray();
+		JSONObject content = new JSONObject();
+		JSONArray info = new JSONArray();
 		JSONObject tweet = new JSONObject();
+		JSONObject user = new JSONObject();
 		
 		tweet.put("created_at","String");
 		tweet.put("id","long");
@@ -69,10 +80,14 @@ public class getData {
 		tweet.put("favourites_count","int");
 		tweet.put("retweet_count","int");
 	//	tweet.put("in_reply_to",)
-		prop.put("tweet",tweet);
+		content.put("tweet",tweet);
+		
+		user.put("name","String");
+		user.put("id","long");
+		user.put("followers_count","long");
 
-		list.add(prop);
-		metadati.put("list",prop);
+		info.add(content);
+		metadati.put("list",content);
 
 		return metadati;
 	}

@@ -52,9 +52,35 @@ public class AppRestController {
 		getData dati = new getData(call.getPosts(), call.getUtenti());
 		
 		return new ResponseEntity<>(dati.showData(), HttpStatus.OK);
-	}
+		}
 	
 	//rotta GET che filtra i tweet salvati per hashtags inseriti
+	
+	@GetMapping(value ="/posts/filter/hashtag")
+	public ResponseEntity<Object> HashtagFilter(@RequestParam(name ="hashtag") String hash) {
+		
+		HashtagFilter hashf = new HashtagFilter(hash,call.getPosts(), call.getUtenti());
+		
+		return new ResponseEntity<>(hashf.filter(), HttpStatus.OK);
+	}
+	
+	//rotta GET che filtra i tweet salvati per numero di retweet, reply e like
+	
+	@GetMapping(value ="/posts/retweets-likes-replies")
+	public ResponseEntity<Object> PublicMetricsFilter(
+			
+			@RequestParam(name ="favourites_count", required = false) int Likes,
+			@RequestParam(name ="retweet_count", required = false)int retweets) {
+		
+		PublicMetricsFilter likes = new PublicMetricsFilter(likes, call.getPosts(), call.getUtenti());
+		
+		PublicMetricsFilter retw = new PublicMetricsFilter(retw, call.getPosts(), call.getUtenti());
+		
+		//qualcosa per le replies
+		
+		return new ResponseEntity<>(likes.filter(), retw.filter(), HttpStatus.OK);
+		
+	}
 	
 	
 }
