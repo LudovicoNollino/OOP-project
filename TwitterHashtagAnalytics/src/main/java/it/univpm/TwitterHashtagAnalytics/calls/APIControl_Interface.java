@@ -1,5 +1,6 @@
 package it.univpm.TwitterHashtagAnalytics.calls;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
@@ -16,7 +17,7 @@ public interface APIControl_Interface {
 	
 	//Metodo astratto che effettua la ricerca tramite hashtag
 	
-	public abstract String buildQuery();
+	public abstract String buildQuery() throws UnsupportedEncodingException;
 	
 	//Metodo astratto che effettua il salvataggio dei dati
 	

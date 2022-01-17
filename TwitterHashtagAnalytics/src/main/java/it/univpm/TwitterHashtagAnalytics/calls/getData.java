@@ -49,14 +49,17 @@ public class getData  {
 			
 			content.put("tweet", tweet);			
 			
+			for(int s=0; s<tweets.size(); s++) {
+				user.put("name",users.get(s).getName());
+				user.put("id",users.get(s).getId_utente());
+				user.put("followers_count",users.get(s).getFollowers());
+			}
 			
-			user.put("name",users.get(j).getName());
-			user.put("id",users.get(j).getId_utente());
-			user.put("followers_count",users.get(j).getFollowers());
+
 			
 			info.add(content);
 		}
-		data.put("list",info);
+		data.put("info",info);
 		return data;
 	}
 	

@@ -1,4 +1,4 @@
-package it.univpm.TwitterHashtagAnalytics.model;
+ package it.univpm.TwitterHashtagAnalytics.model;
 
 /**
  * Parametri per implementare il Costruttore

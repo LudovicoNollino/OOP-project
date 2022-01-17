@@ -36,7 +36,7 @@ public class AppRestController {
 	
 	//rotta GET per i metadati
 	
-	@GetMapping(value ="/posts/metadati")
+	@GetMapping(value ="/metadati")
 	
 	public ResponseEntity<Object> showMetadati() {
 		
@@ -46,7 +46,7 @@ public class AppRestController {
 	
 	// rotta GET che mostra i dati dei tweet salvati in precedenza
 	
-	@GetMapping(value = "/posts/tweet-data")
+	@GetMapping(value = "/tweet-data")
 	public ResponseEntity<Object> showData() {
 		
 		getData dati = new getData(call.getPosts(), call.getUtenti());
@@ -56,7 +56,7 @@ public class AppRestController {
 	
 	//rotta GET che filtra i tweet salvati per hashtags inseriti
 	
-	@GetMapping(value ="/posts/filter/hashtag")
+	/*@GetMapping(value ="/posts/filter/hashtag")
 	public ResponseEntity<Object> HashtagFilter(@RequestParam(name ="hashtag") String hash) {
 		
 		HashtagFilter hashf = new HashtagFilter(hash,call.getPosts(), call.getUtenti());
@@ -81,6 +81,6 @@ public class AppRestController {
 		return new ResponseEntity<>(likes.filter(), retw.filter(), HttpStatus.OK);
 		
 	}
-	
+	*/
 	
 }

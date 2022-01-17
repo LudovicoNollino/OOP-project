@@ -2,21 +2,19 @@ package it.univpm.TwitterHashtagAnalytics.calls;
 
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
+import it.univpm.TwitterHashtagAnalytics.calls.ParameterStringBuilder;
 
-/*import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;*/
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-//import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
-//import org.json.simple.parser.ParseException;
 
 public class APIControl implements APIControl_Interface{
 	
@@ -57,10 +55,25 @@ public class APIControl implements APIControl_Interface{
 	//Metodo che crea il link da inoltrare all'API per effettuare la richiesta e ricevere i dati
 	
 	@Override
-	public String buildQuery() {
-		linkFinale = linkBase + "q=%23" + hash + "&lang=" + lang + "&count=" + count;
-		
-		return linkFinale;
+	public String buildQuery() throws UnsupportedEncodingException {
+		  Scanner input = new Scanner(System.in);
+		  
+		  Map<String, String> test = new HashMap<String, String>();
+		  String tmp = "";
+		  System.out.println("Inserisci hashtag ");
+		  tmp = input.next();
+		  test.put("q", tmp);
+		  System.out.println("Inserisci linguaggio in cui vuoi cercare i tweet ");
+		  test.put("lang", input.next());
+		  System.out.println("Inserisci quanti tweet vuoi visualizzare ");
+		  test.put("count", input.next());
+		  
+		  ParameterStringBuilder prova = new ParameterStringBuilder();
+		  input.close();
+		  String mtp = prova.getParamsString(test);
+		  tmp = "https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?".concat(mtp);
+		  System.out.println(tmp);
+		  return tmp;
 	}
 	
 	@Override
