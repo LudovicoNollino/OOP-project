@@ -1,7 +1,8 @@
 package it.univpm.TwitterHashtagAnalytics.controller;
 
 import it.univpm.TwitterHashtagAnalytics.calls.APIControl;
-import it.univpm.TwitterHashtagAnalytics.calls.getData;
+import it.univpm.TwitterHashtagAnalytics.calls.GetData;
+import it.univpm.TwitterHashtagAnalytics.filters.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,22 +26,21 @@ public class AppRestController {
 	
 	public ResponseEntity<Object> getPosts(
 
-			@RequestParam (name="q", defaultValue = "%23GreenDay") String hash,
-			@RequestParam (name="lang", defaultValue = "en") String lang,
-			@RequestParam (name="count", defaultValue = "25") int count){
+			@RequestParam (name="Hashtag", defaultValue = "%23univpm") String[] hashes,
+			@RequestParam (name="lang", defaultValue = "it") String lang,
+			@RequestParam (name="count", defaultValue = "5") int count){
 	
-		call = new APIControl(hash, lang, count);
+		call = new APIControl(hashes, lang, count);
 		
-	return new ResponseEntity<>(call.retrieveData(), HttpStatus.OK);
+		return new ResponseEntity<>(call.retrieveData(), HttpStatus.OK);
 	}
 	
 	//rotta GET per i metadati
 	
 	@GetMapping(value ="/metadati")
-	
 	public ResponseEntity<Object> showMetadati() {
 		
-		getData metadati = new getData();
+		GetData metadati = new GetData();
 		return new ResponseEntity<>(metadati.showMetadati(), HttpStatus.OK);
 	}
 	
@@ -49,17 +49,17 @@ public class AppRestController {
 	@GetMapping(value = "/tweet-data")
 	public ResponseEntity<Object> showData() {
 		
-		getData dati = new getData(call.getPosts(), call.getUtenti());
+		GetData dati = new GetData(call.getPosts(), call.getUtenti());
 		
 		return new ResponseEntity<>(dati.showData(), HttpStatus.OK);
 		}
 	
 	//rotta GET che filtra i tweet salvati per hashtags inseriti
 	
-	/*@GetMapping(value ="/posts/filter/hashtag")
+	@GetMapping(value ="/filter/hashtag")
 	public ResponseEntity<Object> HashtagFilter(@RequestParam(name ="hashtag") String hash) {
 		
-		HashtagFilter hashf = new HashtagFilter(hash,call.getPosts(), call.getUtenti());
+		HashtagFilter hashf = new HashtagFilter(hash, call.getPosts());
 		
 		return new ResponseEntity<>(hashf.filter(), HttpStatus.OK);
 		
@@ -67,21 +67,28 @@ public class AppRestController {
 	
 	//rotta GET che filtra i tweet salvati per numero di retweet, reply e like
 	
-	@GetMapping(value ="/posts/retweets-likes-replies")
+	@GetMapping(value ="/filter/retweets-likes-followers")
 	public ResponseEntity<Object> PublicMetricsFilter(
 			
-			@RequestParam(name ="favourites_count", required = false) int Likes,
-			@RequestParam(name ="retweet_count", required = false)int retweets) {
+			@RequestParam(name = "Likes") int likes,
+			@RequestParam(name = "Retweet") int retweets,
+			@RequestParam(name = "Followers") int followers){
 		
-		PublicMetricsFilter likes = new PublicMetricsFilter(likes, call.getPosts(), call.getUtenti());
+		PublicMetricsFilter pmf = new PublicMetricsFilter(likes, retweets, followers, call.getPosts(), call.getUtenti());
 		
-		PublicMetricsFilter retw = new PublicMetricsFilter(retw, call.getPosts(), call.getUtenti());
-		
-		//qualcosa per le replies
-		
-		return new ResponseEntity<>(likes.filter(), retw.filter(), HttpStatus.OK);
+		return new ResponseEntity<>(pmf.filter(), HttpStatus.OK);
 		
 	}
-	*/
 	
+	//Rotta GET che filtra i tweet per data di pubblicazione
+	
+	@GetMapping(value = "/filter/daily")
+	public ResponseEntity<Object> DateFilter(@RequestParam(name = "Data") String date){
+		
+		DailyFilter df = new DailyFilter(date, call.getPosts(), call.getUtenti());
+		
+		return new ResponseEntity<>(df.filter(), HttpStatus.OK);
+	
+	}
+
 }

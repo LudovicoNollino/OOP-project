@@ -10,14 +10,14 @@ import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 
 //la classe permette di visualizzare dati e metadati
 
-public class getData  {
+public class GetData  {
 	
 	private ArrayList<Posts> tweets;
 	private ArrayList<Utenti> users;
 	
 	//costruttore e metodo per i DATI
 	
-	public getData(ArrayList<Posts> tweets, ArrayList<Utenti> users) {
+	public GetData(ArrayList<Posts> tweets, ArrayList<Utenti> users) {
 		this.tweets = tweets;
 		this.users = users;
 		
@@ -64,7 +64,7 @@ public class getData  {
 	
 	//costruttore di default e metodo per i METADATI
 	
-	public getData () {}
+	public GetData () {}
 	
 	@SuppressWarnings(value = { "unchecked" })
 	public JSONObject showMetadati () {
@@ -80,7 +80,6 @@ public class getData  {
 		tweet.put("hashtags","ArrayList<String>");
 		tweet.put("favourites_count","int");
 		tweet.put("retweet_count","int");
-	//	tweet.put("in_reply_to",)
 		content.put("tweet",tweet);
 		
 		user.put("name","String");

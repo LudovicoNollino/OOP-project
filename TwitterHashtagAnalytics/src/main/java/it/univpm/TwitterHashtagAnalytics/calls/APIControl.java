@@ -2,14 +2,15 @@ package it.univpm.TwitterHashtagAnalytics.calls;
 
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
-import it.univpm.TwitterHashtagAnalytics.calls.ParameterStringBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Locale;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
@@ -28,8 +29,7 @@ public class APIControl implements APIControl_Interface{
 	 */
 	
 	final static String linkBase ="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?";
-	String linkFinale;
-	String hash;
+	String[] hashes;
 	String lang;
 	int count;
 	
@@ -39,9 +39,9 @@ public class APIControl implements APIControl_Interface{
 	//Costruttore
 	
 	
-	public APIControl(String hash, String lang, int count){
+	public APIControl(String[] hashes, String lang, int count){
 		
-		this.hash = hash;
+		this.hashes = hashes;
 		this.lang = lang;
 		this.count = count;
 	}
@@ -56,24 +56,20 @@ public class APIControl implements APIControl_Interface{
 	
 	@Override
 	public String buildQuery() throws UnsupportedEncodingException {
-		  Scanner input = new Scanner(System.in);
-		  
-		  Map<String, String> test = new HashMap<String, String>();
-		  String tmp = "";
-		  System.out.println("Inserisci hashtag ");
-		  tmp = input.next();
-		  test.put("q", tmp);
-		  System.out.println("Inserisci linguaggio in cui vuoi cercare i tweet ");
-		  test.put("lang", input.next());
-		  System.out.println("Inserisci quanti tweet vuoi visualizzare ");
-		  test.put("count", input.next());
-		  
-		  ParameterStringBuilder prova = new ParameterStringBuilder();
-		  input.close();
-		  String mtp = prova.getParamsString(test);
-		  tmp = "https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?".concat(mtp);
-		  System.out.println(tmp);
-		  return tmp;
+			String bld = linkBase;
+			
+			bld = bld + "lang=" + lang + "&count=" + count;
+			
+			
+			for (int i = 0; i < hashes.length; i++) {
+				String hash = this.hashes[i];
+
+				bld += "&q=" + URLEncoder.encode("#" + hash, "UTF-8");
+				
+			}
+
+			return bld;
+			
 	}
 	
 	@Override
@@ -119,11 +115,16 @@ public class APIControl implements APIControl_Interface{
 					
 					// tweets info
 					//Get data for Results array
+					
+					DateTimeFormatter form = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
+					
 					for(int i=0;i<jsonarr_1.size();i++)
 					{
 						JSONObject tmp = (JSONObject) jsonarr_1.get(i);
 						//Store the JSON objects in an array
 						String date = (String) tmp.get("created_at");
+						LocalDateTime localdatetime = LocalDateTime.parse(date, form);
+						date = localdatetime.toLocalDate().toString();
 						Long id = (Long) tmp.get("id");
 						Long retweet = (Long) tmp.get("retweet_count");
 						Long likes = (Long) tmp.get("favorite_count");
@@ -163,9 +164,14 @@ public class APIControl implements APIControl_Interface{
 					//Disconnect the HttpURLConnection stream
 					conn.disconnect();
 				}
-				catch(Exception e)
-				{
-					e.printStackTrace();
+				catch (UnsupportedEncodingException e) {
+					// Restituire JSON con errore specifico
+				}
+				catch( RuntimeException e ) {
+					// Errore dell'API
+				}
+				catch(Exception e){
+					// Restituisce un'eccezione generale ritornata dal codice
 				}
 				return "Salvataggio dei dati avvenuto.";
 			}
