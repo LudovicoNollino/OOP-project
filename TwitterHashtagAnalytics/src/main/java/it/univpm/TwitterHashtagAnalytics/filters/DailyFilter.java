@@ -17,14 +17,6 @@ public class DailyFilter {
 	private ArrayList<Posts> tweets;
 	private ArrayList<Utenti> users;
 		
-		private void DateParser(Posts temp) {
-			
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
-			LocalDateTime dt = LocalDateTime.parse(temp.getCr_date(), formatter);
-			temp.setCr_date(dt.toLocalDate().toString());
-		
-		}
-		
 		public DailyFilter(String date, ArrayList<Posts> tweets, ArrayList<Utenti> users) {
 			
 			this.date = date;
@@ -41,7 +33,6 @@ public class DailyFilter {
 			
 			for (int i=0; i<tweets.size(); i++) {
 				
-				DateParser(tweets.get(i));
 				JSONObject data = null;
 				
 				if(tweets.get(i).getHashtags() != null) {

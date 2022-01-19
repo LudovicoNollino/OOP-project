@@ -27,8 +27,8 @@ public class AppRestController {
 	public ResponseEntity<Object> getPosts(
 
 			@RequestParam (name="Hashtag", defaultValue = "%23univpm") String[] hashes,
-			@RequestParam (name="lang", defaultValue = "it") String lang,
-			@RequestParam (name="count", defaultValue = "5") int count){
+			@RequestParam (name="Lang", defaultValue = "it") String lang,
+			@RequestParam (name="Count", defaultValue = "5") int count){
 	
 		call = new APIControl(hashes, lang, count);
 		
@@ -57,7 +57,7 @@ public class AppRestController {
 	//rotta GET che filtra i tweet salvati per hashtags inseriti
 	
 	@GetMapping(value ="/filter/hashtag")
-	public ResponseEntity<Object> HashtagFilter(@RequestParam(name ="hashtag") String hash) {
+	public ResponseEntity<Object> HashtagFilter(@RequestParam(name ="Hashtag") String hash) {
 		
 		HashtagFilter hashf = new HashtagFilter(hash, call.getPosts());
 		
