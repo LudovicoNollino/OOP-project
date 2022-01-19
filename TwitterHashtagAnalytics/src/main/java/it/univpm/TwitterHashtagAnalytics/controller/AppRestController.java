@@ -1,7 +1,7 @@
 package it.univpm.TwitterHashtagAnalytics.controller;
 
-import it.univpm.TwitterHashtagAnalytics.calls.APIControl;
-import it.univpm.TwitterHashtagAnalytics.calls.GetData;
+import it.univpm.TwitterHashtagAnalytics.service.APIControl;
+import it.univpm.TwitterHashtagAnalytics.service.GetData;
 import it.univpm.TwitterHashtagAnalytics.filters.*;
 import it.univpm.TwitterHashtagAnalytics.stats.DailyTweetsStats;
 import it.univpm.TwitterHashtagAnalytics.stats.HashtagStats;

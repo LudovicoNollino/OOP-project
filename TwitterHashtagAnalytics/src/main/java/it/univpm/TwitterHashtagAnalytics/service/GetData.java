@@ -1,4 +1,4 @@
-package it.univpm.TwitterHashtagAnalytics.calls;
+package it.univpm.TwitterHashtagAnalytics.service;
 
 import java.util.ArrayList;
 
