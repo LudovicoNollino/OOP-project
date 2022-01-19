@@ -3,6 +3,12 @@ package it.univpm.TwitterHashtagAnalytics.controller;
 import it.univpm.TwitterHashtagAnalytics.calls.APIControl;
 import it.univpm.TwitterHashtagAnalytics.calls.GetData;
 import it.univpm.TwitterHashtagAnalytics.filters.*;
+import it.univpm.TwitterHashtagAnalytics.stats.DailyTweetsStats;
+import it.univpm.TwitterHashtagAnalytics.stats.HashtagStats;
+
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +34,7 @@ public class AppRestController {
 
 			@RequestParam (name="Hashtag", defaultValue = "%23univpm") String[] hashes,
 			@RequestParam (name="Lang", defaultValue = "it") String lang,
-			@RequestParam (name="Count", defaultValue = "5") int count){
+			@RequestParam (name="Count", defaultValue = "5") int count) throws IOException, ParseException{
 	
 		call = new APIControl(hashes, lang, count);
 		
@@ -89,6 +95,26 @@ public class AppRestController {
 		
 		return new ResponseEntity<>(df.filter(), HttpStatus.OK);
 	
+	}
+	
+	//Rotta GET che effettua le statistiche sugli hashtag
+	
+	@GetMapping(value = "/stats/hashtag")
+	public ResponseEntity<Object> HashStats(@RequestParam(name = "Hashtag") String hashtag){
+		
+		HashtagStats hs = new HashtagStats(hashtag, call.getPosts());
+		
+		return new ResponseEntity<>(hs.Statistics(), HttpStatus.OK);
+	}
+	
+	//Rotta GET che effettua le statistiche sui tweet giornalieri in riferimento alle loro metriche pubbliche
+	
+	@GetMapping(value = "/stats/daily")
+	public ResponseEntity<Object> DailyStats(@RequestParam(name = "Data") String date){
+		
+		DailyTweetsStats ds = new DailyTweetsStats(date, call.getPosts(), call.getUtenti());
+		
+		return new ResponseEntity<>(ds.Statistics(), HttpStatus.OK);
 	}
 
 }

@@ -1,7 +1,12 @@
 package it.univpm.TwitterHashtagAnalytics.calls;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
+
+import org.json.simple.parser.ParseException;
+
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 
@@ -21,7 +26,7 @@ public interface APIControl_Interface {
 	
 	//Metodo astratto che effettua il salvataggio dei dati
 	
-	public abstract String retrieveData();
+	public abstract String retrieveData() throws MalformedURLException, UnsupportedEncodingException, IOException, ParseException;
 	
 	
 	

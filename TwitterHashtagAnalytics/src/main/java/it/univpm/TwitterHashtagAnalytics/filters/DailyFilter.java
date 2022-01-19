@@ -1,9 +1,6 @@
 package it.univpm.TwitterHashtagAnalytics.filters;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

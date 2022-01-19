@@ -3,6 +3,7 @@ package it.univpm.TwitterHashtagAnalytics.calls;
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -16,6 +17,7 @@ import java.util.Scanner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class APIControl implements APIControl_Interface{
 	
@@ -73,13 +75,11 @@ public class APIControl implements APIControl_Interface{
 	}
 	
 	@Override
-	public String retrieveData(){
+	public String retrieveData() throws IOException, ParseException{
 	
 		//inline will store the JSON data streamed in string format
 				String inline = "";
 			
-				try
-				{
 					URL url = new URL(this.buildQuery());
 					//Parse URL into HttpURLConnection in order to open the connection in order to get the JSON data
 					HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -101,7 +101,6 @@ public class APIControl implements APIControl_Interface{
 						{
 							inline+=sc.nextLine();
 						}
-						System.out.println(inline);
 						//Close the stream when reading the data has been finished
 						sc.close();
 					}
@@ -144,7 +143,7 @@ public class APIControl implements APIControl_Interface{
 							JSONObject jsonobj_3 = (JSONObject) hash.get(j);
 							//Store the data as String objects
 							String temp = (String) jsonobj_3.get("text");
-							str_data1.add(temp);
+							str_data1.add(temp.toLowerCase());
 						}
 						
 						Posts newPost = new Posts(date, id, str_data1, retweet, likes);
@@ -163,75 +162,9 @@ public class APIControl implements APIControl_Interface{
 					}
 					//Disconnect the HttpURLConnection stream
 					conn.disconnect();
+					
+					return "Salvataggio dei dati avvenuto.";
 				}
-				catch (UnsupportedEncodingException e) {
-					// Restituire JSON con errore specifico
-				}
-				catch( RuntimeException e ) {
-					// Errore dell'API
-				}
-				catch(Exception e){
-					// Restituisce un'eccezione generale ritornata dal codice
-				}
-				return "Salvataggio dei dati avvenuto.";
+				
+				
 			}
-	
-	}		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*	try {
-		URL url = new URL("https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?");
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Accept", "applications/json");
-		
-		int response = conn.getResponseCode();
-		
-		if(conn.getResponseCode() != 200) {
-			throw new RuntimeException("httpResponseCode: " + response);
-		}
-		else {
-			StringBuilder informationString = new StringBuilder();
-            Scanner scanner = new Scanner(url.openStream());
-            
-            while (scanner.hasNext()) {
-                informationString.append(scanner.nextLine());
-            }
-            scanner.close();
-            
-            System.out.println(informationString);
-            
-            JSONParser parse = new JSONParser();
-            JSONArray dataObject = (JSONArray) parse.parse(String.valueOf(informationString));
-            
-            System.out.println(dataObject.get(0));
-
-            JSONObject countryData = (JSONObject) dataObject.get(0);
-
-            System.out.println(countryData.get("woeid"));
-		}
-	}catch (Exception e) {
-        e.printStackTrace();}*/
-
-
