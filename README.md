@@ -86,7 +86,7 @@ inserire immagine
     "Metadati": {
         "tweet": {
             "date": "String",
-            "hashtags": "ArrayList<String>,
+            "hashtags": "ArrayList<String>",
             "id": "long",
             "retweets": "int",
             "likes": "int"
@@ -159,7 +159,7 @@ Dati relativi ad esempio precedente:
 
 <a name=7></a>
 ### 7. Hashtag_Stats
-![Screenshot (10)](https://user-images.githubusercontent.com/95432231/150432194-d06d23b2-ab1a-46a9-858f-93d6770e253d.png)
+(https://user-images.githubusercontent.com/95432231/150432194-d06d23b2-ab1a-46a9-858f-93d6770e253d.png)
 
 
 
