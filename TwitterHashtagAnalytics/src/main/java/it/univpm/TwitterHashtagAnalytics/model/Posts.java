@@ -3,26 +3,28 @@ package it.univpm.TwitterHashtagAnalytics.model;
 import java.util.ArrayList;
 
 /**
- * Parametri per implementare il Costruttore
- * 
- * @param cr_date indica la data di creazione del tweet
- * @param id_tweet indica l'identificativo del tweet
- * @param hashtags indica gli hashtag presenti nel tweet
- * @param retweet indica il numero di retweet
- * @param likes indica il numero di like
- * @param replies (in sospeso)
- *
+ * Parametri per implementare il Costruttore.
  */
 
 public class Posts {
 	
-	private String cr_date;
-	ArrayList<String> hashtags;
-	private long id_tweet;
-	private long retweets;
-	private long likes;
-	//private int replies;
 	
+	private String cr_date;
+	
+	ArrayList<String> hashtags;
+	
+	private long id_tweet;
+	
+	private long retweets;
+	
+	private long likes;
+	
+	
+	/**
+	 * Costruttore per i la classe Posts
+	 *
+	 * @param post è il singolo elemento contenuto in Posts
+	 */
 	public Posts (Posts post) {
 		setCr_date(post.getCr_date());
 		setHashtags(post.getHashtags());
@@ -33,6 +35,15 @@ public class Posts {
 	
 	
 	
+    /**
+     * Costruttore
+     *
+     * @param cr_date è la data di creazione del post
+     * @param id_tweet è il codice identificativo del tweet
+     * @param hashtags sono gli hashtags contenuti nel tweet
+     * @param retweets è il numero di retweetts di un post
+     * @param likes è il numero di likes di un post
+     */
     public Posts(String cr_date, Long id_tweet, ArrayList<String> hashtags, Long retweets, Long likes){
     	setCr_date(cr_date);
     	setHashtags(hashtags);
@@ -41,6 +52,9 @@ public class Posts {
     	setRetweets(retweets);
     }
 
+    /*
+     * Getters & setters di ogni parametro del cotruttore
+     * */
 	public String getCr_date() {return cr_date;}
 
 	public void setCr_date(String cr_date) {this.cr_date = cr_date;}

@@ -8,12 +8,31 @@ import org.json.simple.JSONObject;
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 
+/**
+ * Questa classe effettua filtraggio sui tweet di una data scelta
+ * 
+ * @author Simone Recchia
+ * @author Ludovico Nollino
+ */
+
 public class DailyFilter {
-		
+	
+	/*
+	 * Attributi
+	 * 
+	 * */
+	
 	private String date;
 	private ArrayList<Posts> tweets;
 	private ArrayList<Utenti> users;
 		
+		/*
+		 * Costruttore
+		 * 
+		 * @param date è la data per il filtraggio
+		 * @param tweets indica la lista di tweets salvati
+		 * @param users indica la lista di utente salvati
+		 * */
 		public DailyFilter(String date, ArrayList<Posts> tweets, ArrayList<Utenti> users) {
 			
 			this.date = date;
@@ -22,7 +41,12 @@ public class DailyFilter {
 			
 		}
 		
-		@SuppressWarnings("unchecked")
+		/*
+		 *Questo metodo serve per memorizzare in un JSONObject i tweets scritti nella data scelta
+		 *
+		 * @return JSONObject contenente i tweet scritti nel giorno scelto e la lista dei tweet di quel giorno
+		 * @return JSONObject contenente i la lista di utenti che hanno postato nella data scelta
+		 * */
 		public JSONObject filter() {
 			
 			JSONObject dt = new JSONObject();

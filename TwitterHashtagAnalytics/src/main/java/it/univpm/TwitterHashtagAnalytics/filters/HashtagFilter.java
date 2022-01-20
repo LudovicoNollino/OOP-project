@@ -6,15 +6,31 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 
-//implemennta la FilterInterface e filtra per hashtag
+
+
+/**
+ * Questa classe effettua il filtraggio sui tweet contenenti l'hashtag scelto scelto
+ * 
+ * @author Simore Recchia
+ * @author Ludovico Nollino
+ *
+ */
 
 public class HashtagFilter{
 	
+	/*
+	 * Attributi
+	 * */
 	private String hashtag;
 	private ArrayList<Posts> tweets ;
 	
-	//Costruttore
 	
+	/**
+	 * Costruttore
+	 *
+	 * @param hashtag è l'hashtag per il quale si vuole effettuare il filtraggio
+	 * @param tweets è la lista di tweet salvata
+	 */
 	public HashtagFilter (String hashtag, ArrayList<Posts> tweets) {
 		
 		this.tweets = tweets;
@@ -22,9 +38,11 @@ public class HashtagFilter{
 				
 	}
 	
-	//Metodo che memorizza i post con l'hahstag inserito come filtro
+	/*
+	 * Questo metodo serve per memorizzare in un JSONObject i tweets con l'hashtag scelto
+	 * 
+	 * @return  JSONObject contenente la lista dei tweet con l'hashtag selezionato*/
 	
-	@SuppressWarnings("unchecked")
 	public JSONObject filter () {
 		
 		JSONObject hash = new JSONObject();

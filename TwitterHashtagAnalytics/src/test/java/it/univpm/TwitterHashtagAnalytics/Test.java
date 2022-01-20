@@ -10,20 +10,40 @@ import org.junit.jupiter.api.BeforeEach;
 
 import it.univpm.TwitterHashtagAnalytics.service.APIControl;
 
+/**
+ * Classe test per verificare la correttezza del metodo buildQuery().
+ */
 class Test {
 	
 	private APIControl test1;
+	
 	private String[] array1 = {"test"};
 	
+	/**
+	 * Setup delle variabili per il test.
+	 *
+	 * @throws Exception eccezione generale
+	 */
 	@BeforeEach
 	void setUp() throws Exception {
 		
 		test1 = new APIControl(array1, "it", 5);
 	}
 
+	/**
+	 * Teardown delle variabili per il test.
+	 *
+	 * @throws Exception eccezione generale
+	 */
 	@AfterEach
 	void tearDown() throws Exception {}
 
+	/**
+	 * Prova 1.
+	 *
+	 * @throws MalformedURLException Eccezione generata nel caso in cui c'è un errore durante la creazione dell'URL
+	 * @throws IOException Eccezione generata nel caso in cui c'è un errore di input output.
+	 */
 	@org.junit.jupiter.api.Test
 	void prova1() throws MalformedURLException, IOException{
 		

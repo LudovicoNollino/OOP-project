@@ -5,18 +5,34 @@ import java.util.HashMap;
 
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 
+/**
+ * Classe per l'implementazione delle statistiche sugli hashtag.
+ */
 public class HashtagStats implements StatsInterface{
 
+	/** Parametro hashtag da cercare. */
 	private String hashtag;
+	
+	/** ArrayList popolato di tweet. */
 	private ArrayList<Posts> tweets;
 	
+	/**
+	 * Costruttore.
+	 *
+	 * @param hashtag è l'hashtag da ricercare
+	 * @param tweets ArrayList di tweet
+	 */
 	public HashtagStats (String hashtag, ArrayList<Posts> tweets) {
 		
 		this.hashtag = hashtag;
 		this.tweets = tweets;
 	}
 	
-	//metodo per effettuare le statistiche sui ntweets salvati
+	/**
+	 * Statistiche.
+	 *
+	 * @return HashMap contente le statistiche
+	 */
 	@Override
 	public HashMap<String, Float> Statistics() {
 		

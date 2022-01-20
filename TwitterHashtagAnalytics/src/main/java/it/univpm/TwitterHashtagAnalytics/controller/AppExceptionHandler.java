@@ -11,9 +11,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import it.univpm.TwitterHashtagAnalytics.service.APIError;
 
+/**
+ * La Classe AppExceptionHandler implementa la gestione delle eccezioni tramite gli strumenti offerti da Spring
+ * in particolare vengono gestite le eccezioni generate dalle richieste HTTP instradate verso l'API.
+ */
 @ControllerAdvice
 public class AppExceptionHandler {
 	
+	/**
+	 * Gestione eccezione number format exception.
+	 *
+	 * @param e è l'istanza dell' eccezione NumberFormatException
+	 * @return ResponseEntity che contiene il messaggio di errore e lo status della connessione
+	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(NumberFormatException.class)
 	public ResponseEntity<APIError> handleNumberFormatException (NumberFormatException e){
@@ -23,6 +33,12 @@ public class AppExceptionHandler {
 		return new ResponseEntity<APIError> (error, status);
 	}
 	
+	/**
+	 * Gestione dell'eccezione NullPointerException.
+	 *
+	 * @param e è l'istanza dell'eccezione NullPointerException
+	 * @return ResponseEntity che contiene il codice di errore e lo status della connessione
+	 */
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(NullPointerException.class)
 	public ResponseEntity<APIError> handleNullPointerException (NullPointerException e){
@@ -32,6 +48,12 @@ public class AppExceptionHandler {
 		return new ResponseEntity<APIError> (error, status);
 	}
 	
+	/**
+	 * Gestione dell'eccezione IOException.
+	 *
+	 * @param e è l'istanza dell'eccezione IOException
+	 * @return ResponseEntity che contiene il codice di errore e lo status della connessione
+	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(IOException.class)
 	public ResponseEntity<APIError> handleMalformedURLException (IOException e){
@@ -41,6 +63,12 @@ public class AppExceptionHandler {
 		return new ResponseEntity<APIError> (error, status);
 	}
 	
+	/**
+	 * Gestione dell'eccezione ParseException.
+	 *
+	 * @param e è l'istanza dell'eccezione ParseException
+	 * @return ResponseEntity che contiene il codice di errore e lo status della connessione
+	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ParseException.class)
 	public ResponseEntity<APIError> handleParseException (ParseException e){

@@ -12,13 +12,22 @@ import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * Classe per il testing del controller.
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest(AppExceptionHandler.class)
 public class ExceptionControllerUnitTest{
 
+    /** mvc. */
     @Autowired
     private MockMvc mvc;
     
+    /**
+     * Internal server error.
+     *
+     * @throws Exception Eccezione generale
+     */
     @Test
     public void InternalServerError() throws Exception {
         String exceptionParam = "dummy";

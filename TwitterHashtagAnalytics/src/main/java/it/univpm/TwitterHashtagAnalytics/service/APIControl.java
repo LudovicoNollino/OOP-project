@@ -19,25 +19,34 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * La classe APIControl implementa l'interfaccia APIControll_Interface.
+ */
 public class APIControl implements APIControl_Interface{
 	
-	//Parametri
 	/*
-	 * @param hashes è un array di hashtag che contiene tutti gli array che l'utente desidera ricercare
-	 * @param lang è il linguaggio in cui si vogliono ricercare i post (di default su italiano)
-	 * @param count è il conteggio di post che vogliono essere visualizzati dall'utente (di default su 10)
-	 * @param linkBase corrisponde alla base del link per collegarsi alla api al quale andremo poi ad aggiungere i campi per effettuare la query come richiesto dall'utente
-	 */
+	 *Attributi
+	 * */
 	
 	final static String linkBase ="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?";
+	
 	String[] hashes;
+	
 	String lang;
+	
 	int count;
 	
 	ArrayList<Posts> tweets = new ArrayList<Posts>();
+	
 	ArrayList<Utenti> users = new ArrayList<Utenti>();
 	
-	//Costruttore
+	/**
+	 * Costruttore
+	 *
+	 * @param hashes è un array di hashtag che contiene tutti gli array che l'utente desidera ricercare
+	 * @param lang è il linguaggio in cui si vogliono ricercare i post (di default su italiano)
+	 * @param count è il conteggio di post che vogliono essere visualizzati dall'utente (di default su 10)
+	 */
 	public APIControl(String[] hashes, String lang, int count){
 		
 		this.hashes = hashes;
@@ -45,13 +54,26 @@ public class APIControl implements APIControl_Interface{
 		this.count = count;
 	}
 	
+	/**
+	 * Metodo get che ritorna una lista di tweets
+	 *
+	 */
 	@Override
 	public ArrayList<Posts> getPosts() {return tweets;}
 	
+	/**
+	 * Metodo get che ritorna una lista degli utenti
+	 *
+	 */
 	@Override
 	public ArrayList<Utenti> getUtenti() {return users;}
 	
-	//Metodo che crea il link da inoltrare all'API per effettuare la richiesta e ricevere i dati
+	/**
+	 * Questo metodo permette di costruire l'URL per effettuare la ricerca
+	 *
+	 * @return una stringa contenente l'URL per la ricerca
+	 * @throws UnsupportedEncodingException se l'URL è in un formato non supportato dall'HTTP
+	 */
 	@Override
 	public String buildQuery() throws UnsupportedEncodingException {
 			
@@ -68,6 +90,13 @@ public class APIControl implements APIControl_Interface{
 			return bld;
 	}
 	
+	/**
+	 * Metodo che permette di salvare i dati trovati
+	 *
+	 * @return una stringa che conferma il salvataggio
+	 * @throws IOException Signals se c'è un errore di I/O
+	 * @throws ParseException se c'è un errore nell'analisi
+	 */
 	@Override
 	public String retrieveData() throws IOException, ParseException{
 	

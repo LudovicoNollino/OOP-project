@@ -6,12 +6,27 @@ import java.util.HashMap;
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 
+	/**
+	 * Classe per l'implementazione delle statistiche sui tweet giornalieri.
+	 */
 	public class DailyTweetsStats implements StatsInterface{
 
+		/** ArrayList popolato con i tweet. */
 		private ArrayList<Posts> tweets;
+		
+		/** ArrayList popolato con gli utenti. */
 		private ArrayList<Utenti> users;
+		
+		/** Parametro data necessario per effettuare la ricerca. */
 		private String date;
 		
+		/**
+		 * Costruttore della classe.
+		 *
+		 * @param date Data da cercare
+		 * @param tweets ArrayList dei tweet
+		 * @param users ArrayList degli users
+		 */
 		public DailyTweetsStats (String date, ArrayList<Posts> tweets, ArrayList<Utenti> users) {
 			
 			this.date = date;
@@ -19,6 +34,11 @@ import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 			this.tweets = tweets;
 		}
 		
+		/**
+		 * Statistiche.
+		 *
+		 * @return HashMap contenente le statistiche
+		 */
 		@Override
 		public HashMap<String, Float> Statistics() {
 			

@@ -8,23 +8,35 @@ import org.json.simple.JSONObject;
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 
-//
 
+/**
+ *La classe GetData permette di visualizzare dati e metadati.
+ */
 public class GetData  {
 	
 	private ArrayList<Posts> tweets;
+	
 	private ArrayList<Utenti> users;
 	
-	//costruttore e metodo per i DATI
 	
+	/**
+	 * Costruttore
+	 *
+	 * @param tweets è la lista dei tweets
+	 * @param users è la lista degli utenti
+	 */
 	public GetData(ArrayList<Posts> tweets, ArrayList<Utenti> users) {
 		this.tweets = tweets;
 		this.users = users;
 		
 	}
 	
-	//metodo per la visualizzazione dei dati
 	
+	/**
+	 * Metodo per la visualizzazione dei dati.
+	 *
+	 * @return JSONObject
+	 */
 	@SuppressWarnings(value = { "unchecked" })
 	public JSONObject showData() {
 
@@ -60,12 +72,17 @@ public class GetData  {
 		return data;
 	}
 	
-	
-	//costruttore di default e metodo per i METADATI
-	
+		
+	/**
+	 * Costruttore di default e metodo per i METADATI.
+	 */
 	public GetData () {}
 	
-	@SuppressWarnings(value = { "unchecked" })
+	/**
+	 * Metodo che mostra i metadati.
+	 *
+	 * @return JSONObject popolato con i campi che descrivono i metadati
+	 */
 	public JSONObject showMetadati () {
 		
 		JSONObject metadati = new JSONObject();
