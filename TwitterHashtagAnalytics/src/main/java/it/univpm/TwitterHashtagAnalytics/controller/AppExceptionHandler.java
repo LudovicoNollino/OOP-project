@@ -48,17 +48,5 @@ public class AppExceptionHandler {
 		error.setException("Errore nel parsing dei dati, effettuare una nuova chiamata");
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		return new ResponseEntity<APIError> (error, status);
-	}
-	
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public class InternalException extends RuntimeException {
-
-		private static final long serialVersionUID = 1L;
-
-		public InternalException(String message) {
-	        super(message);
-	    }
-	}
-	
-	
+	}	
 }
