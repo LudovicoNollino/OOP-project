@@ -1,8 +1,7 @@
 package it.univpm.TwitterHashtagAnalytics.stats;
 
 import java.util.ArrayList;
-
-import org.json.simple.JSONObject;
+import java.util.HashMap;
 
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 
@@ -18,11 +17,9 @@ public class HashtagStats implements StatsInterface{
 	}
 	
 	//metodo per effettuare le statistiche sui ntweets salvati
-	@SuppressWarnings("unchecked")
 	@Override
-	public JSONObject Statistics() {
+	public HashMap<String, Float> Statistics() {
 		
-		JSONObject hstat = new JSONObject();
 		float count = 0;
 		float max = 0;
 		float min = 1;
@@ -47,10 +44,12 @@ public class HashtagStats implements StatsInterface{
 		
 		float media = ((min+max)/tweets.size());
 		
+		HashMap<String, Float> hstat = new HashMap<String, Float>();
+
 		hstat.put("Totale dei tweet contenenti l'hashtag #" + hashtag , count);
+		hstat.put("Media degli hashtag per tweet", media);
 		hstat.put("Massimo numero di hashtag contenuto in un tweet", max);
 		hstat.put("Minimo numero di hastag contenuto in un tweet" , min);
-		hstat.put("Media degli hashtag per tweet", media);
 		
 		return hstat;
 		}	

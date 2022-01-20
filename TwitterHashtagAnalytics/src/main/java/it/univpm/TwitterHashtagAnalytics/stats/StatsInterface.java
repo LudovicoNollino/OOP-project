@@ -1,9 +1,9 @@
 package it.univpm.TwitterHashtagAnalytics.stats;
 
-import org.json.simple.JSONObject;
+import java.util.HashMap;
 
 public interface StatsInterface {
 	
-	public abstract JSONObject Statistics(); 
+	public abstract HashMap<String, Float> Statistics(); 
 	
 	}

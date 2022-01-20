@@ -28,6 +28,4 @@ public interface APIControl_Interface {
 	
 	public abstract String retrieveData() throws MalformedURLException, UnsupportedEncodingException, IOException, ParseException;
 	
-	
-	
 	}

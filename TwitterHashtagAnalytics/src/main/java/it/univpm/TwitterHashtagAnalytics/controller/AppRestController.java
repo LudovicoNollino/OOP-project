@@ -37,9 +37,9 @@ public class AppRestController {
 			@RequestParam (name="Count", defaultValue = "5") int count) throws IOException, ParseException{
 	
 		call = new APIControl(hashes, lang, count);
-		
+
 		return new ResponseEntity<>(call.retrieveData(), HttpStatus.OK);
-	}
+		}
 	
 	//rotta GET per i metadati
 	
@@ -65,10 +65,8 @@ public class AppRestController {
 	@GetMapping(value ="/filter/hashtag")
 	public ResponseEntity<Object> HashtagFilter(@RequestParam(name ="Hashtag") String hash) {
 		
-		HashtagFilter hashf = new HashtagFilter(hash, call.getPosts());
-		
-		return new ResponseEntity<>(hashf.filter(), HttpStatus.OK);
-		
+			HashtagFilter hashf = new HashtagFilter(hash, call.getPosts());
+			return new ResponseEntity<>(hashf.filter(), HttpStatus.OK);
 	}
 	
 	//rotta GET che filtra i tweet salvati per numero di retweet, reply e like
@@ -81,9 +79,7 @@ public class AppRestController {
 			@RequestParam(name = "Followers") int followers){
 		
 		PublicMetricsFilter pmf = new PublicMetricsFilter(likes, retweets, followers, call.getPosts(), call.getUtenti());
-		
 		return new ResponseEntity<>(pmf.filter(), HttpStatus.OK);
-		
 	}
 	
 	//Rotta GET che filtra i tweet per data di pubblicazione
@@ -91,10 +87,8 @@ public class AppRestController {
 	@GetMapping(value = "/filter/daily")
 	public ResponseEntity<Object> DateFilter(@RequestParam(name = "Data") String date){
 		
-		DailyFilter df = new DailyFilter(date, call.getPosts(), call.getUtenti());
-		
-		return new ResponseEntity<>(df.filter(), HttpStatus.OK);
-	
+			DailyFilter df = new DailyFilter(date, call.getPosts(), call.getUtenti());
+			return new ResponseEntity<>(df.filter(), HttpStatus.OK);
 	}
 	
 	//Rotta GET che effettua le statistiche sugli hashtag

@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 
-//la classe permette di visualizzare dati e metadati
+//
 
 public class GetData  {
 	
@@ -45,7 +45,6 @@ public class GetData  {
 			tweet.put("hashtags",tweets.get(j).getHashtags());
 			tweet.put("likes",tweets.get(j).getLikes());
 			tweet.put("retweets",tweets.get(j).getRetweets());
-			//tweet.put("in_replt_to",tweets.get(k).getReply());
 			
 			content.put("tweet", tweet);		
 			
@@ -57,7 +56,7 @@ public class GetData  {
 			
 			info.add(content);
 		}
-		data.put("info",info);
+		data.put("Dati su tweet e utenti trovati",info);
 		return data;
 	}
 	
@@ -75,19 +74,20 @@ public class GetData  {
 		JSONObject tweet = new JSONObject();
 		JSONObject user = new JSONObject();
 		
-		tweet.put("created_at","String");
+		tweet.put("date","String");
 		tweet.put("id","long");
 		tweet.put("hashtags","ArrayList<String>");
-		tweet.put("favourites_count","int");
-		tweet.put("retweet_count","int");
+		tweet.put("likes","int");
+		tweet.put("retweets","int");
 		content.put("tweet",tweet);
 		
 		user.put("name","String");
 		user.put("id","long");
-		user.put("followers_count","long");
-
+		user.put("followers","long");
+		content.put("Users", user);
+		
 		info.add(content);
-		metadati.put("list",content);
+		metadati.put("Metadati",content);
 
 		return metadati;
 	}

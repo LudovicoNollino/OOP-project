@@ -1,8 +1,7 @@
 package it.univpm.TwitterHashtagAnalytics.stats;
 
 import java.util.ArrayList;
-
-import org.json.simple.JSONObject;
+import java.util.HashMap;
 
 import it.univpm.TwitterHashtagAnalytics.model.Posts;
 import it.univpm.TwitterHashtagAnalytics.model.Utenti;
@@ -20,11 +19,9 @@ import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 			this.tweets = tweets;
 		}
 		
-		@SuppressWarnings("unchecked")
 		@Override
-		public JSONObject Statistics() {
+		public HashMap<String, Float> Statistics() {
 			
-			JSONObject dstats = new JSONObject();
 			float count = 0;
 			float maxLikes = 0;
 			float minLikes = 1;
@@ -62,6 +59,8 @@ import it.univpm.TwitterHashtagAnalytics.model.Utenti;
 			float mediaRetweets = ((minRetweets+maxRetweets)/tweets.size());
 			float mediaFollowers = ((minFollowers+maxFollowers)/tweets.size());
 			
+			HashMap<String, Float> dstats = new HashMap<String, Float>();
+
 			dstats.put("Totale dei tweet analizzati nella data scelta"  , count);
 			dstats.put("Massimo numero di likes dei tweet analizzati", maxLikes);
 			dstats.put("Minimo numero di likes dei tweet analizzati" , minLikes);

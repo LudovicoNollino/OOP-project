@@ -23,11 +23,10 @@ public class APIControl implements APIControl_Interface{
 	
 	//Parametri
 	/*
-	 * @param hash è un array di hashtag che contiene tutti gli array che l'utente desidera ricercare
+	 * @param hashes è un array di hashtag che contiene tutti gli array che l'utente desidera ricercare
 	 * @param lang è il linguaggio in cui si vogliono ricercare i post (di default su italiano)
 	 * @param count è il conteggio di post che vogliono essere visualizzati dall'utente (di default su 10)
 	 * @param linkBase corrisponde alla base del link per collegarsi alla api al quale andremo poi ad aggiungere i campi per effettuare la query come richiesto dall'utente
-	 * @param linkFinale è il link che verrà inoltrato all'API per ottenere i dati sui tweet 
 	 */
 	
 	final static String linkBase ="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?";
@@ -39,8 +38,6 @@ public class APIControl implements APIControl_Interface{
 	ArrayList<Utenti> users = new ArrayList<Utenti>();
 	
 	//Costruttore
-	
-	
 	public APIControl(String[] hashes, String lang, int count){
 		
 		this.hashes = hashes;
@@ -55,93 +52,78 @@ public class APIControl implements APIControl_Interface{
 	public ArrayList<Utenti> getUtenti() {return users;}
 	
 	//Metodo che crea il link da inoltrare all'API per effettuare la richiesta e ricevere i dati
-	
 	@Override
 	public String buildQuery() throws UnsupportedEncodingException {
-			String bld = linkBase;
+			
+		String bld = linkBase;
 			
 			bld = bld + "lang=" + lang + "&count=" + count;
 			
-			
 			for (int i = 0; i < hashes.length; i++) {
-				String hash = this.hashes[i];
-
-				bld += "&q=" + URLEncoder.encode("#" + hash, "UTF-8");
 				
-			}
+				String hash = this.hashes[i];
+				bld += "&q=" + URLEncoder.encode("#" + hash, "UTF-8");
+				}
 
 			return bld;
-			
 	}
 	
 	@Override
 	public String retrieveData() throws IOException, ParseException{
 	
-		//inline will store the JSON data streamed in string format
+		//La variabile inline sarà usata come appoggio per la lettura delle righe del file JSON restituito dall'API
 				String inline = "";
 			
 					URL url = new URL(this.buildQuery());
-					//Parse URL into HttpURLConnection in order to open the connection in order to get the JSON data
 					HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-					//Set the request to GET or POST as per the requirements
 					conn.setRequestMethod("GET");
-					//Use the connect method to create the connection bridge
 					conn.connect();
-					//Get the response status of the Rest API
 					int responsecode = conn.getResponseCode();					
-					//Iterating condition to if response code is not 200 then throw a runtime exception
-					//else continue the actual process of getting the JSON data
 					if(responsecode != 200)
 						throw new RuntimeException("HttpResponseCode: " +responsecode);
 					else
 					{
-						//Scanner functionality will read the JSON data from the stream
+						//Lo Scanner leggerà i dati dallo stream JSON
 						Scanner sc = new Scanner(conn.getInputStream());
 						while(sc.hasNext())
 						{
 							inline+=sc.nextLine();
 						}
-						//Close the stream when reading the data has been finished
 						sc.close();
 					}
 					
-					//JSONParser reads the data from string object and break each data into key value pairs
+					//Il JSONParser prende tutti i dati restituiti e li scompone in coppie di chiavi e valori
 					JSONParser parse = new JSONParser();
-					//Type caste the parsed json data in json object
 					JSONObject jobj = (JSONObject)parse.parse(inline);
-					//Store the JSON object in JSON array as objects (For level 1 array element)
+					//Viene popolato il JSONArray con i JSONObject che contengono i dati di livello 1
 					JSONArray jsonarr_1 = (JSONArray) jobj.get("statuses");
-					
-					// tweets info
-					//Get data for Results array
-					
+				
+					//Salvataggio informazioni sui tweet
+					//Viene dichiarato un DateTimeFormatter per la conversione della data dal formato del tweet al formato yyyy-mm-dd
 					DateTimeFormatter form = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
 					
-					for(int i=0;i<jsonarr_1.size();i++)
-					{
+					for(int i=0;i<jsonarr_1.size();i++){
+						
 						JSONObject tmp = (JSONObject) jsonarr_1.get(i);
-						//Store the JSON objects in an array
 						String date = (String) tmp.get("created_at");
+						//Nelle due righe successive viene preso il valore della stringa "created_at" e viene effettuato il parsing della data
 						LocalDateTime localdatetime = LocalDateTime.parse(date, form);
 						date = localdatetime.toLocalDate().toString();
 						Long id = (Long) tmp.get("id");
 						Long retweet = (Long) tmp.get("retweet_count");
 						Long likes = (Long) tmp.get("favorite_count");
 
-						//Store the JSON object in JSON array as objects (For level 2 array element i.e Address Components)
+						//Viene popolato un JSONArray con i JSONObject che contengono i dati di livello 2 (hashtag)
 						JSONObject jsonobj_2 = (JSONObject) tmp.get("entities");
 						JSONArray hash = (JSONArray) jsonobj_2.get("hashtags");
 						
 						ArrayList<String> str_data1 = new ArrayList<String>();
 						
-						//Get data for the Address Components array
-						
-						for(int j=0;j<hash.size();j++)
-						{
-							//Same just store the JSON objects in an array
-							//Get the index of the JSON objects and print the values as per the index
+						for(int j=0;j<hash.size();j++){
+							
+						// All'interno di questo ciclo viene preso il contenuto del campo hashtag
+						// e viene salvato in formato generalizzato (tutto in minuscolo) per facilitare l'utilizzo delle stringhe successivamente
 							JSONObject jsonobj_3 = (JSONObject) hash.get(j);
-							//Store the data as String objects
 							String temp = (String) jsonobj_3.get("text");
 							str_data1.add(temp.toLowerCase());
 						}
@@ -149,7 +131,7 @@ public class APIControl implements APIControl_Interface{
 						Posts newPost = new Posts(date, id, str_data1, retweet, likes);
 						tweets.add(newPost);
 						
-						//users info 
+						//Salvataggio informazioni sugli utenti
 						JSONObject mtp = (JSONObject) tmp.get("user");
 						Long id_utente = (Long) mtp.get("id");
 						String name = (String) mtp.get("name");
@@ -160,11 +142,8 @@ public class APIControl implements APIControl_Interface{
 						
 						
 					}
-					//Disconnect the HttpURLConnection stream
 					conn.disconnect();
 					
 					return "Salvataggio dei dati avvenuto.";
-				}
-				
-				
-			}
+	}
+}
