@@ -133,8 +133,10 @@ Dati relativi ad esempio precedente:
             "created_at": ""
             "id":
             "hashtags": [],
-            ]
+          
         }
+    ]
+ }
 ```
 
 <a name=5></a>
@@ -151,17 +153,51 @@ Dati relativi ad esempio precedente:
          }
      ]
  }
+ ```
 
 <a name=6></a>
 ### 6. PublicMetrics_Filter
-
-
+ ```json
+ {
+     "Lista filtrata secondo i parametri inseriti": [
+        {
+            "Numero di likes": 
+            "Numero di followers": 
+            "Nome dell'utente che ha postato il tweet": ""
+            "Numero di retweets": 
+            "Id del tweet filtrato":
+        }
+      ]
+ }
+ ```
 
 <a name=7></a>
 ### 7. Hashtag_Stats
-(https://user-images.githubusercontent.com/95432231/150432194-d06d23b2-ab1a-46a9-858f-93d6770e253d.png)
+ ```json
+ {
+    "Media degli hashtag per tweet": 1.2,
+    "Totale dei tweet contenenti l'hashtag #music": 4.0,
+    "Minimo numero di hastag contenuto in un tweet": 1.0,
+    "Massimo numero di hashtag contenuto in un tweet": 11.0
+}
+ ```
 
-
+ <a name=8></a>
+### 8. Daily_Tweet_Stats
+ ```json
+ {
+    "Massimo numero di followers tra gli utenti dei tweet analizzati": 0.0,
+    "Massimo numero di likes dei tweet analizzati": 0.0,
+    "Media dei likes dei tweet analizzati": 0.1,
+    "Media dei retweets dei tweet analizzati": 0.1,
+    "Massimo numero di retweets dei tweet analizzati": 0.0,
+    "Minimo numero di likes dei tweet analizzati": 1.0,
+    "Minimo numero di followers tra gli utenti dei tweet analizzati": 1.0,
+    "Totale dei tweet analizzati nella data scelta": 10.0,
+    "Media dei followers": 0.1,
+    "Minimo numero di retweets dei tweet analizzati": 1.0
+}
+ ```
 
 
 
