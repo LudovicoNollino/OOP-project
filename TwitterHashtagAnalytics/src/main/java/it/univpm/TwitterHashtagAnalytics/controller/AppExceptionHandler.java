@@ -50,5 +50,15 @@ public class AppExceptionHandler {
 		return new ResponseEntity<APIError> (error, status);
 	}
 	
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public class InternalException extends RuntimeException {
+
+		private static final long serialVersionUID = 1L;
+
+		public InternalException(String message) {
+	        super(message);
+	    }
+	}
+	
 	
 }
