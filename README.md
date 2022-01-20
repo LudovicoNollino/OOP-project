@@ -11,6 +11,7 @@ Object Oriented Programming Project 2021/2022
 <\div>
 
 #### :warning: NOTA IMPORTANTE: nelle specifiche era richiesto il filtraggio per numero di reply ma tale parametro, non essendo presente sull'API-proxy fornita, è stato sostituito ,in accordo con il docente, dal numero di followers dell'utente che ha effettusto il post.
+
 <\p>
 
 ## **Indice** :bookmark_tabs:
@@ -18,11 +19,10 @@ Object Oriented Programming Project 2021/2022
 * [Come iniziare](#config)
 * [Rotte](#rotte)
 * [Chiamate API](#calls)
-* [Esempio di esecuzione](#ex)
 * [Eccezioni](#eccez)
 * [Test](#test)
 * [Documentazione](#doc)
-* [Autori e commenti](#autor)
+* [Autori](#autor)
 
 <a name="intro"></a>
 ## Introduzione :mega:
@@ -108,16 +108,18 @@ Dati relativi ad esempio precedente:
     "Dati su tweet e utenti trovati": [
         {
             "tweet": {
-                "hashtags": [],
-                "created_at": 
-                "id": "",
-                "retweets": ""
-                "likes":
+                "hashtags": [
+                    "music",
+                    "blues"],
+                "created_at": "2022-01-20" 
+                "id": 1484300157827047429,
+                "retweets": 0
+                "likes": "0"
             },
             "user": {
-                "followers": ""
-                "name": "",
-                "id":
+                "followers": "3275"
+                "name": "WNMC Radio Playlist",
+                "id": 259312208
             }
         }
     ]
@@ -130,9 +132,13 @@ Dati relativi ad esempio precedente:
 {
     "Lista filtrata di tweet che contengono l'hashtag cercato": [
         {
-            "created_at": ""
-            "id":
-            "hashtags": [],
+            "created_at": "2022-01-20"
+            "id":1484301772172972032
+            "hashtags": ["raye",
+                "tiktok",
+                "awards",
+                "britawards",
+                "music"],
           
         }
     ]
@@ -145,11 +151,15 @@ Dati relativi ad esempio precedente:
  {
      "Lista filtrata di tweet pubblicati il giorno cercato": [
          {
-              "Numero di followers":
-              "Nome dell'utente che ha postato il tweet": ""
-              "Id":
-              "Data di creazione": ""
-              "hashtag": []
+              "Numero di followers":42
+              "Nome dell'utente che ha postato il tweet": "Diana Sawicka"
+              "Id":1484301772172972032
+              "Data di creazione": "2022-01-20"
+              "hashtag": ["raye",
+                "tiktok",
+                "awards",
+                "britawards",
+                "music"]
          }
      ]
  }
@@ -161,11 +171,11 @@ Dati relativi ad esempio precedente:
  {
      "Lista filtrata secondo i parametri inseriti": [
         {
-            "Numero di likes": 
-            "Numero di followers": 
-            "Nome dell'utente che ha postato il tweet": ""
-            "Numero di retweets": 
-            "Id del tweet filtrato":
+            "Numero di likes": 0
+            "Numero di followers": 3275
+            "Nome dell'utente che ha postato il tweet": "WNMC Radio Playlist"
+            "Numero di retweets":0
+            "Id del tweet filtrato":1484300157827047429
         }
       ]
  }
@@ -198,6 +208,30 @@ Dati relativi ad esempio precedente:
     "Minimo numero di retweets dei tweet analizzati": 1.0
 }
  ```
+ 
+ <a name="eccez"></a>
+## Eccezioni :x:
+ Sono state gestite eccezioni standard di Java.
+ 
+ <a name="test"></a>
+## Test :question:
+ Sfruttando il framework JUnit sono stati effettuati un test sul metodo di costruzione dell'URL per effettuare la ricerca e un test sull' eccezione InternalServerError.
+ 
+ <a name="doc"></a>
+## Documentazione :abc:
+ Il progetto è stato documentato con Javadoc.
+ 
+ ## Autori e commenti :busts_in_silhouette:
+
+Progetto realizzato da
+ 
+Simone Recchia: Service, Stats
+Ludovico Nollino: Filter, Model
+Lavoro congiunto su Controller, Test e ExceptionHandler.
+#### NOTA IMPORTANTE: negli ultimi giorni di lavoro è stato svolto tutto sulla stessa macchina in quanto ci sono state problematiche legate ai funzionamenti di GitHub. Nella fattispecie, non venivano effettuate correttamente le push e le pull. 
+ 
+ 
+ 
 
 
 
