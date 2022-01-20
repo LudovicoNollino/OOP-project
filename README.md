@@ -105,15 +105,14 @@ inserire immagine
 Dati relativi ad esempio precedente:
 ```json
 {
-    "dati su tweet e utenti": [
+    "Dati su tweet e utenti trovati": [
         {
             "tweet": {
-            "date": "",
-                "hashtags": [
-                   ],
-                "id": 
-                "retweets": "",
-                "likes": ""
+                "hashtags": [],
+                "created_at": 
+                "id": "",
+                "retweets": ""
+                "likes":
             },
             "user": {
                 "followers": ""
@@ -127,83 +126,41 @@ Dati relativi ad esempio precedente:
 
 <a name=4></a>
 ### 4. Hashtag_Filter
-
-Stesso formato dei [dati](#3) con solo tweet scritti nel giorno indicato.
+ ```json
+{
+    "Lista filtrata di tweet che contengono l'hashtag cercato": [
+        {
+            "created_at": ""
+            "id":
+            "hashtags": [],
+            ]
+        }
+```
 
 <a name=5></a>
 ### 5. Daily_Filter
-
-Stesso formato dei [dati](#3) con solo tweet provenienti dal luogo indicato.
-
-**NOTA:** *In questo caso per essere visualizzato il tweet deve contenere nel luogo la parola inserita. Questo significa che se cerco **Italia** non vedrò tweet con posizione **Milano, Lombardia**!*
+ ```json
+ {
+     "Lista filtrata di tweet pubblicati il giorno cercato": [
+         {
+              "Numero di followers":
+              "Nome dell'utente che ha postato il tweet": ""
+              "Id":
+              "Data di creazione": ""
+              "hashtag": []
+         }
+     ]
+ }
 
 <a name=6></a>
 ### 6. PublicMetrics_Filter
 
-Tra default e caso specifico non cambia nulla se non i giorni indicati:
-```json
-{
-    "Total tweets downloaded": 5.0
-    "Tweets written on 2021-12-15": 5.0,
-    "Tweets written on 2021-12-14": 0.0,
-    "Tweets written on 2021-12-13": 0.0,
-    "Percentage": 100.0
-}
-```
+
 
 <a name=7></a>
 ### 7. Hashtag_Stats
+![Screenshot (10)](https://user-images.githubusercontent.com/95432231/150432194-d06d23b2-ab1a-46a9-858f-93d6770e253d.png)
 
-Default:
-```json
-{
-    "Total tweets downloaded": 5.0
-    "Tweets with no location": 2.0,
-    "Tweets with unprocessable location": 0.0
-    "Tweets written in Italy": 3.0,
-    "Percentage of tweets with no location": 40.0,
-    "Percentage of tweets with unprocessable location": 0.0,
-    "Percentage of tweets written in Italy": 60.0
-}
-```
-
-**NOTA:** *Si ha NO LOCATION se nè il tweet nè l'utente hanno fornito informazioni sulla posizione, mentre UNPROCESSABLE LOCATION comprende i tweet in cui la posizione non corrisponde a "Italia", "Italy" oppure nomi di comuni e regioni in **lingua italiana**.*
-
-Specifico:
-```json
-{
-    "Total tweets downloaded": 5.0,
-    "Tweets written in Italia": 3.0,
-    "Percentage": 60.0
-}
-```
-**NOTA:** *vedi [sopra](#5)*
-
-<a name=8></a>
-### 8. Hashtag_Stats
-
-Default:
-```json
-{
-    "Total tweets downloaded": 5.0
-    "Min hashtags per tweet": 2.0,
-    "Max hashtags per tweet": 4.0,
-    "Average hashtags per tweet": 3.0
-}
-```
-
-**NOTA:** *Per problemi di Twitter può accadere che il valore minimo degli hashtag sia 0 anche se impossibile visto che i tweet sono stati ricercati in base ad almeno 1 hashtag. Purtroppo questo non dipende da noi!*
-
-Specifico:
-```json
-{
-    "Total tweets downloaded": 5.0,
-    "Tweets containing #univpm": 0.0,
-    "Percentage": 0.0
-}
-```
-
-**NOTA:** *la parola da ricercare va inserita senza # in questo caso!*
 
 
 
