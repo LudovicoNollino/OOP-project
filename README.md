@@ -8,11 +8,9 @@ Object Oriented Programming Project 2021/2022
 
 ### Applicazione Java di tipo WEB-REST che sfrutta il framework SpringBoot e l'API di Twitter per offrire all'utente la possibilità di effettuare ricerche per hashtag, filtraggio per hashtag e metriche pubbliche, e statistiche sui tweet giornalieri.
 
-<\div>
 
 #### :warning: NOTA IMPORTANTE: nelle specifiche era richiesto il filtraggio per numero di reply ma tale parametro, non essendo presente sull'API-proxy fornita, è stato sostituito ,in accordo con il docente, dal numero di followers dell'utente che ha effettusto il post.
 
-<\p>
 
 ## **Indice** :bookmark_tabs:
 * [Introduzione](#intro)
