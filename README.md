@@ -77,7 +77,7 @@ N° | Parametri | Tipo
 <a name=1></a>
 ### 1. get_tweet
 
-inserire immagine
+![Screenshot (11)](https://user-images.githubusercontent.com/95432231/150433081-3b794f8a-d582-4aee-8355-f50ed9b22b3c.png)
 
 ### 2. metadati
 
