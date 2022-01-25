@@ -223,9 +223,12 @@ Dati relativi ad esempio precedente:
 
 Progetto realizzato da
  
-Simone Recchia: Service, Stats
-Ludovico Nollino: Filter, Model
+Simone Recchia: Service, Stats.
+ 
+Ludovico Nollino: Filter, Model.
+ 
 Lavoro congiunto su Controller, Test e ExceptionHandler.
+ 
 #### NOTA IMPORTANTE: negli ultimi giorni di lavoro è stato svolto tutto sulla stessa macchina in quanto ci sono state problematiche legate ai funzionamenti di GitHub. Nella fattispecie, non venivano effettuate correttamente le push e le pull. 
  
  
