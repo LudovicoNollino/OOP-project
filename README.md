@@ -53,8 +53,8 @@ Object Oriented Programming Project 2021/2022
  [4](#4) |` GET ` | `/posts/filter/daily` | *output: JSONObject che contiene i tweet postati nel giorno inserito*
  [5](#5) |` GET ` | `/posts/filter/hashtag` | *output: JSONObject che contiene i tweet filtrati con l'hashtag inserito dall'utente*
  [6](#6) |` GET ` | `/posts/filter/public-metrics` | *output: JSONObject che contiene i tweet con un numero di like, retweet e followers superiore a quello inserito*
- [7](#7) |` GET ` | `/posts/stats/daily` | *output: JSONObject che contiene numero massimo, numero minimo e media di like, retweet e followers dei tweet postati in un giorno*
- [8](#8) |` GET ` | `/posts/stats/hashtag` | *output: JSONObject che contiene numero massimo, numero minimo e media degli hashtag per tweet*
+ [7](#7) |` GET ` | `/posts/stats/daily` | *output: HASHMAP che contiene numero massimo, numero minimo e media di like, retweet e followers dei tweet postati in un giorno*
+ [8](#8) |` GET ` | `/posts/stats/hashtag` | *output: HASHMAP che contiene numero massimo, numero minimo e media degli hashtag per tweet*
  
  <a name="param"></a>
 ## Chiamate API :telephone_receiver:
